@@ -4,6 +4,8 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.Tip
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +22,7 @@ public class Alerta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Enumerated(EnumType.STRING)
     private TipoAlerta alerta;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "alerta")
