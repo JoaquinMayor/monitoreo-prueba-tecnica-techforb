@@ -87,7 +87,6 @@ public class PlantaService {
                 for(int o= 0 ; o<cantLectOk;o++){
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
-                    lectura.setSensor(true);
                     lectura.setTipo(determinarTipoLectura());
                     lectura.setAlerta(cargarAlerta(TipoAlerta.OK));
                     planta.setLectura(lectura);
@@ -96,7 +95,6 @@ public class PlantaService {
                 for(int m= 0 ; m<cantLectMedio;m++){
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
-                    lectura.setSensor(true);
                     lectura.setTipo(determinarTipoLectura());
                     lectura.setAlerta(cargarAlerta(TipoAlerta.MEDIAS));
                     planta.setLectura(lectura);
@@ -105,7 +103,6 @@ public class PlantaService {
                 for(int r= 0 ; r<cantLectRojo;r++){
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
-                    lectura.setSensor(false);
                     lectura.setTipo(determinarTipoLectura());
                     lectura.setAlerta(cargarAlerta(TipoAlerta.ROJAS));
                     planta.setLectura(lectura);

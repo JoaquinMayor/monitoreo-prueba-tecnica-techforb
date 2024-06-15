@@ -31,9 +31,6 @@ public class Lectura{
     @JoinColumn(name = "id_alerta")
     private Alerta alerta;
 
-    @NotNull
-    private Boolean sensor;
-
     @ManyToOne
     @JoinColumn(name = "id_planta")
     @JsonIgnore
@@ -43,11 +40,10 @@ public class Lectura{
 
     }
 
-    public Lectura(Long id, @NotNull TipoLectura tipo, @NotNull Alerta alerta, @NotNull Boolean sensor) {
+    public Lectura(Long id, @NotNull TipoLectura tipo, @NotNull Alerta alerta) {
         this.id = id;
         this.tipo = tipo;
         this.alerta = alerta;
-        this.sensor = sensor;
     }
 
     public Long getId() {
@@ -72,14 +68,6 @@ public class Lectura{
 
     public void setAlerta(Alerta alerta) {
         this.alerta = alerta;
-    }
-
-    public Boolean getSensor() {
-        return sensor;
-    }
-
-    public void setSensor(Boolean sensor) {
-        this.sensor = sensor;
     }
 
     public Planta getPlanta() {
@@ -118,7 +106,7 @@ public class Lectura{
 
     @Override
     public String toString() {
-        return "Lectura [id=" + id + ", tipo=" + tipo + ", alerta=" + alerta + ", sensor=" + sensor + "]";
+        return "Lectura [id=" + id + ", tipo=" + tipo + ", alerta=" + alerta  + "]";
     }
 
     
