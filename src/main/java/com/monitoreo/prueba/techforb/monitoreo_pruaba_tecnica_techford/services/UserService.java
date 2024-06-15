@@ -56,7 +56,7 @@ public class UserService {
             respuesta.put("status", HttpStatus.CREATED);
             respuesta.put("mensaje", "Usuario creado con exito");
             respuesta.put("usuario", usuario);
-            return ResponseEntity.ok().body(respuesta);
+            return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
         }else{
             throw new CantidadCaracteresException("Contraseña muy corta, debe contar con al menos 8 carcateres");
         }
@@ -72,7 +72,7 @@ public class UserService {
             respuesta.put("status", HttpStatus.FOUND);
             respuesta.put("mensaje","Usuario encontontrado");
             respuesta.put("usuario", usuario);
-            return ResponseEntity.ok().body(respuesta);
+            return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
         
         
     }

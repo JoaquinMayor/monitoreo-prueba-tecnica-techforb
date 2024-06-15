@@ -80,6 +80,11 @@ public class TipoLectura {
         return "TipoLectura [id=" + id + ", tipo=" + tipo + "]";
     }
 
+    public TipoLectura orElseThrow(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
+
     
 
 

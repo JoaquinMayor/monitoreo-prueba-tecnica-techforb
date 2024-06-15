@@ -81,6 +81,14 @@ public class Lectura{
     public void setSensor(Boolean sensor) {
         this.sensor = sensor;
     }
+
+    public Planta getPlanta() {
+        return planta;
+    }
+
+    public void setPlanta(Planta planta) {
+        this.planta = planta;
+    }
     
 
     @Override
@@ -112,6 +120,8 @@ public class Lectura{
     public String toString() {
         return "Lectura [id=" + id + ", tipo=" + tipo + ", alerta=" + alerta + ", sensor=" + sensor + "]";
     }
+
+    
 
 
 

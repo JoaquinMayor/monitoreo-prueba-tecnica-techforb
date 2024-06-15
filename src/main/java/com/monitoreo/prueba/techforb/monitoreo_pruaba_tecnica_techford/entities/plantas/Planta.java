@@ -73,6 +73,9 @@ public class Planta {
         this.lecturas = lecturas;
     }
 
+    public void setLectura(Lectura lectura){
+        this.lecturas.add(lectura);
+    }
     @Override
     public int hashCode() {
         final int prime = 31;
