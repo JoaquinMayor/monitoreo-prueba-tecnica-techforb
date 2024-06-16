@@ -52,8 +52,9 @@ public class UsuarioService {
         }
         if(usuario.getContrasenia().length()>8){
             usuario.setRoles(roles);
+            usuarioRepository.save(usuario);
             Map<String, Object> respuesta = new HashMap<>();
-            respuesta.put("status", HttpStatus.CREATED);
+            respuesta.put("status", 201);
             respuesta.put("mensaje", "Usuario creado con exito");
             respuesta.put("usuario", usuario);
             return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
@@ -69,7 +70,7 @@ public class UsuarioService {
         
             Usuario usuario = usuarioOptional.orElseThrow(()->new UsuarioNoEncontradoExceotion("Usuario no encontrado"));
             Map<String, Object> respuesta = new HashMap<>();
-            respuesta.put("status", HttpStatus.FOUND);
+            respuesta.put("status", 302);
             respuesta.put("mensaje","Usuario encontontrado");
             respuesta.put("usuario", usuario);
             return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);

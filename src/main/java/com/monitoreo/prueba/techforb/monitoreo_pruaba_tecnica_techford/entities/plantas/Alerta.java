@@ -1,5 +1,7 @@
 package com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.plantas;
 
+import java.util.Set;
+
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.TipoAlerta;
 
 import jakarta.persistence.CascadeType;
@@ -26,7 +28,7 @@ public class Alerta {
     private TipoAlerta alerta;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "alerta")
-    private Lectura lectura;
+    private Set<Lectura> lectura;
 
     public Alerta(){
         

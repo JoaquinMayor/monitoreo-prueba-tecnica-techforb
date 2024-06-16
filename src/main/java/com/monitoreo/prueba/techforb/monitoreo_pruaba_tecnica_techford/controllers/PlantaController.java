@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.plantas.Planta;
+import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.TipoAlerta;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.exceptions.AlertaNoEncontradaException;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.exceptions.CantidadNoLogicaException;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.exceptions.TipoAlertaNEncontradoException;
@@ -24,7 +25,6 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.models.Ac
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.services.PlantaService;
 
 import jakarta.validation.Valid;
-
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/planta")
@@ -46,14 +46,38 @@ public class PlantaController {
         return plantaService.findAll();
     }
 
-    @PutMapping
-    public ResponseEntity<?> update(@RequestBody ActualizacionPlanta actualizacionPlanta) throws AlertaNoEncontradaException, CantidadNoLogicaException, TipoAlertaNEncontradoException{
+    @PutMapping("/update/lecturas")
+    public ResponseEntity<?> updateLecturas(@RequestBody ActualizacionPlanta actualizacionPlanta) throws AlertaNoEncontradaException, CantidadNoLogicaException, TipoAlertaNEncontradoException{
         return plantaService.actualizarCantidadLecturas(actualizacionPlanta);
     }
 
-    @DeleteMapping("eliminar/{id}")
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody Planta planta, BindingResult result){
+        if(result.hasFieldErrors()){
+            return validation(result);
+        }
+
+        return plantaService.save(planta);
+    }
+
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id){
         return plantaService.delete(id);
+    }
+
+    @GetMapping("/contarOk/{id}")
+    public ResponseEntity<?> contarCantidadOk(@PathVariable Long id){
+        return plantaService.contarCantidadLecturas(id, TipoAlerta.OK);
+    }
+
+    @GetMapping("/contarMedia/{id}")
+    public ResponseEntity<?> contarCantidadMedia(@PathVariable Long id){
+        return plantaService.contarCantidadLecturas(id, TipoAlerta.MEDIAS);
+    }
+
+    @GetMapping("/contarRoja/{id}")
+    public ResponseEntity<?> contarCantidadRoja(@PathVariable Long id){
+        return plantaService.contarCantidadLecturas(id, TipoAlerta.ROJAS);
     }
 
     

@@ -23,7 +23,7 @@ public class SensorService {
     public ResponseEntity<?>findAll(){
         Map<String, Object> respuesta = new HashMap<>();
         Set<Sensor> setSensor = sensorRepository.findAll();
-        respuesta.put("status", HttpStatus.FOUND);
+        respuesta.put("status", 302);
         respuesta.put("mensaje","Todos los sensores obtenidos");
         respuesta.put("sensores", setSensor);
         return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
@@ -33,7 +33,7 @@ public class SensorService {
     public ResponseEntity<?> contarSensoresDesabilitados(){
         Map<String, Object> respuesta = new HashMap<>();
         Integer cantidad = sensorRepository.contraSensoresDesabilitados();
-        respuesta.put("status", HttpStatus.FOUND);
+        respuesta.put("status", 302);
         respuesta.put("mensaje","Todos los sensores contados");
         respuesta.put("cant", cantidad);
         return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
@@ -43,7 +43,7 @@ public class SensorService {
     public ResponseEntity<?> save(Sensor sensor){
         sensorRepository.save(sensor);
         Map<String, Object> respuesta = new HashMap<>();
-        respuesta.put("status", HttpStatus.CREATED);
+        respuesta.put("status", 201);
         respuesta.put("mensaje","Sensor guardado con éxito");
         respuesta.put("sensor", sensor);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);

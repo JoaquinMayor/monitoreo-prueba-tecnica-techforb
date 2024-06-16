@@ -1,5 +1,7 @@
 package com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.plantas;
 
+import java.util.Set;
+
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.TipoLecturaEnun;
 
 import jakarta.persistence.CascadeType;
@@ -14,7 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tipoLectura")
+@Table(name = "tipolectura")
 public class TipoLectura {
 
     @Id
@@ -25,7 +27,7 @@ public class TipoLectura {
     private TipoLecturaEnun tipo;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "tipo")
-    private Lectura lectura;
+    private Set<Lectura> lectura;
 
     public TipoLectura(){}
 

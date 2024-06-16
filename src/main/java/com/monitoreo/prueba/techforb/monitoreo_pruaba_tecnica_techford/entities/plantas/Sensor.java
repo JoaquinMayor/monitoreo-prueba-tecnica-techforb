@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "sensor")
+@Table(name = "sensores")
 public class Sensor {
 
     @Id

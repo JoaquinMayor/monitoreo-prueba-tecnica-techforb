@@ -24,7 +24,7 @@ public class LecturaService {
     public ResponseEntity<?> findAll(){
         Map<String, Object> respuesta = new HashMap<>();
         Set<Lectura> setLecturas = lecturaRepository.findAll();
-        respuesta.put("status", HttpStatus.FOUND);
+        respuesta.put("status", 302);
         respuesta.put("mensaje","Todas las lecturas obtenidas");
         respuesta.put("lecturas", setLecturas);
         return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);

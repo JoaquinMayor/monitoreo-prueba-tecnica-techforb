@@ -46,7 +46,7 @@ public class PlantaService {
     public ResponseEntity<?> save(Planta planta){
         plantaRepository.save(planta);
         Map<String, Object> respuesta = new HashMap<>();  
-        respuesta.put("status", HttpStatus.CREATED);
+        respuesta.put("status", 201);
         respuesta.put("mensaje", "Planta agregada con Éxito");
         respuesta.put("planta", planta);
 
@@ -62,6 +62,16 @@ public class PlantaService {
          return ResponseEntity.status(200).body(respuesta);
     }
 
+    @Transactional(readOnly = true)
+    public ResponseEntity<?> contarCantidadLecturas(Long idPlanta, TipoAlerta tipo){
+        Integer cant = plantaRepository.obtenerCantidadLecturasPorTipo(tipo, idPlanta);
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("status", 200);
+        respuesta.put("mensaje", "Encontrado con exito");
+        respuesta.put("cant", cant);
+        return ResponseEntity.status(200).body(respuesta);
+    }
+
     @Transactional
     public ResponseEntity<?> cargarUnaLectura(Lectura lectura, Long idPlanta){
         Optional<Planta> optionalPlanta = plantaRepository.findById(idPlanta);
@@ -75,7 +85,7 @@ public class PlantaService {
             respuesta.put("status", 200);
             respuesta.put("mensaje","Planta actualizada");
         }else{
-            respuesta.put("status", HttpStatus.NOT_FOUND);
+            respuesta.put("status", 404);
             respuesta.put("mensaje","La planta que intenta actualizar no existe");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuesta);
         }
@@ -98,7 +108,7 @@ public class PlantaService {
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
                     lectura.setTipo(determinarTipoLectura());
-                    lectura.setAlerta(cargarAlerta(TipoAlerta.OK));
+                    lectura.setAlerta(cargarAlerta(1L));
                     planta.setLectura(lectura);
                     lecturaRepository.save(lectura);  
                 }
@@ -106,7 +116,7 @@ public class PlantaService {
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
                     lectura.setTipo(determinarTipoLectura());
-                    lectura.setAlerta(cargarAlerta(TipoAlerta.MEDIAS));
+                    lectura.setAlerta(cargarAlerta(2L));
                     planta.setLectura(lectura);
                     lecturaRepository.save(lectura);
                 }
@@ -114,7 +124,7 @@ public class PlantaService {
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
                     lectura.setTipo(determinarTipoLectura());
-                    lectura.setAlerta(cargarAlerta(TipoAlerta.ROJAS));
+                    lectura.setAlerta(cargarAlerta(3L));
                     planta.setLectura(lectura);
                     lecturaRepository.save(lectura);
                 }
@@ -128,7 +138,7 @@ public class PlantaService {
             }
 
         }else{
-            respuesta.put("status", HttpStatus.BAD_REQUEST);
+            respuesta.put("status", 400);
             respuesta.put("mensaje", "Planta no encontrada");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(respuesta);
         }
@@ -140,15 +150,15 @@ public class PlantaService {
     public ResponseEntity<?> findAll(){
         Map<String, Object> respuesta = new HashMap<>();
         Set<Planta> setPlantas = plantaRepository.findAll();
-        respuesta.put("status", HttpStatus.FOUND);
+        respuesta.put("status", 302);
         respuesta.put("mensaje","Todas la plantas obtenidas");
         respuesta.put("plantas", setPlantas);
         return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
     }
 
 
-    public Alerta cargarAlerta(TipoAlerta tipo) throws AlertaNoEncontradaException{
-        Alerta alerta = alertaRepository.finByAlerta(tipo).orElseThrow(()-> new AlertaNoEncontradaException("Tipo de alerta no encontrada"));
+    public Alerta cargarAlerta(Long id) throws AlertaNoEncontradaException{
+        Alerta alerta = alertaRepository.findById(id).orElseThrow(()-> new AlertaNoEncontradaException("Tipo de alerta no encontrada"));
         
         return alerta;
     }
