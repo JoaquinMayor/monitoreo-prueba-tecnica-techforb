@@ -15,7 +15,7 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositor
 
 
 @Service
-public class SensoresService {
+public class SensorService {
     @Autowired
     private SensorRepository sensorRepository;
 
@@ -37,5 +37,15 @@ public class SensoresService {
         respuesta.put("mensaje","Todos los sensores contados");
         respuesta.put("cant", cantidad);
         return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
+    }
+
+    @Transactional
+    public ResponseEntity<?> save(Sensor sensor){
+        sensorRepository.save(sensor);
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("status", HttpStatus.CREATED);
+        respuesta.put("mensaje","Sensor guardado con éxito");
+        respuesta.put("sensor", sensor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
     }
 }

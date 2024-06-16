@@ -20,6 +20,7 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.Tip
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.exceptions.AlertaNoEncontradaException;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.exceptions.CantidadNoLogicaException;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.exceptions.TipoAlertaNEncontradoException;
+import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.models.ActualizacionPlanta;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositories.planta.AlertaRepository;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositories.planta.LecturaRepository;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositories.planta.PlantaRepository;
@@ -53,6 +54,15 @@ public class PlantaService {
     }
 
     @Transactional
+    public ResponseEntity<?> delete(Long id){
+         plantaRepository.deleteById(id);
+         Map<String, Object> respuesta = new HashMap<>();
+         respuesta.put("status", 200);
+         respuesta.put("mensaje", "Eliminado con exito");
+         return ResponseEntity.status(200).body(respuesta);
+    }
+
+    @Transactional
     public ResponseEntity<?> cargarUnaLectura(Lectura lectura, Long idPlanta){
         Optional<Planta> optionalPlanta = plantaRepository.findById(idPlanta);
         Map<String, Object> respuesta = new HashMap<>();
@@ -74,17 +84,17 @@ public class PlantaService {
 
 
     @Transactional
-    public ResponseEntity<?> actualizarCantidadLecturas(Long idPlanta, 
-            Integer cantLecturas, Integer cantLectOk, Integer cantLectMedio, Integer cantLectRojo) throws AlertaNoEncontradaException, CantidadNoLogicaException, TipoAlertaNEncontradoException{
+    public ResponseEntity<?> actualizarCantidadLecturas(ActualizacionPlanta actualizacion) throws AlertaNoEncontradaException, CantidadNoLogicaException, TipoAlertaNEncontradoException{
         
-        Optional<Planta> optionalPlanta = plantaRepository.findById(idPlanta);
+        Optional<Planta> optionalPlanta = plantaRepository.findById(actualizacion.getIdPlanta());
         Map<String, Object> respuesta = new HashMap<>();
 
         if(optionalPlanta.isPresent()){
             Planta planta = optionalPlanta.get();
             
-            if(cantLecturas == cantLectOk + cantLectMedio+ cantLectRojo){
-                for(int o= 0 ; o<cantLectOk;o++){
+            if(actualizacion.getCanLecturas() == actualizacion.getCantLectOk()+ actualizacion.getCantLectMedio()+ actualizacion.getCantLectRojo()){
+                lecturaRepository.deleteAll();
+                for(int o= 0 ; o<actualizacion.getCantLectOk();o++){
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
                     lectura.setTipo(determinarTipoLectura());
@@ -92,7 +102,7 @@ public class PlantaService {
                     planta.setLectura(lectura);
                     lecturaRepository.save(lectura);  
                 }
-                for(int m= 0 ; m<cantLectMedio;m++){
+                for(int m= 0 ; m<actualizacion.getCantLectMedio();m++){
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
                     lectura.setTipo(determinarTipoLectura());
@@ -100,7 +110,7 @@ public class PlantaService {
                     planta.setLectura(lectura);
                     lecturaRepository.save(lectura);
                 }
-                for(int r= 0 ; r<cantLectRojo;r++){
+                for(int r= 0 ; r<actualizacion.getCantLectRojo();r++){
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
                     lectura.setTipo(determinarTipoLectura());
@@ -142,6 +152,8 @@ public class PlantaService {
         
         return alerta;
     }
+
+
 
     public TipoLectura determinarTipoLectura() throws TipoAlertaNEncontradoException{
         Random random = new Random();

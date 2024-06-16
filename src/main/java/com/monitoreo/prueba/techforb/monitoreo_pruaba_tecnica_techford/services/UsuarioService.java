@@ -25,7 +25,7 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositor
 import jakarta.transaction.Transactional;
 
 @Service
-public class UserService {
+public class UsuarioService {
 
     private static final String EMAIL_PATRON = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
