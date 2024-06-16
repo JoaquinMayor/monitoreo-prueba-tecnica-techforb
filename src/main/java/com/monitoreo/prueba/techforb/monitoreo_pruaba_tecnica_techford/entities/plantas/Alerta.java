@@ -9,7 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,7 +25,7 @@ public class Alerta {
     @Enumerated(EnumType.STRING)
     private TipoAlerta alerta;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "alerta")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "alerta")
     private Lectura lectura;
 
     public Alerta(){

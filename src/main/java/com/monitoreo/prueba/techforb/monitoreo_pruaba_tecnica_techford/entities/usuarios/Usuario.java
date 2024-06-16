@@ -35,7 +35,7 @@ public class Usuario {
     @JsonIgnoreProperties({"usuarios","handler","hibernateLAzyInitializer"})
     @ManyToMany
     @JoinTable(
-        name = "rolesxusers",
+        name = "rolesxusuario",
         joinColumns = @JoinColumn(name ="id_usuario"),
         inverseJoinColumns = @JoinColumn(name = "id_rol"),
         uniqueConstraints = {@UniqueConstraint(columnNames = {"id_usuario", "id_rol"})}

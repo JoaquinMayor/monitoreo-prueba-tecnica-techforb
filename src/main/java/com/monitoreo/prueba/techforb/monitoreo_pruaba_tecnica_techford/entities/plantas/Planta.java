@@ -1,7 +1,5 @@
 package com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.plantas;
 
-
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,8 +22,10 @@ public class Planta {
 
     @NotEmpty
     private String nombre;
-    
-    private Pais pais; 
+    @NotEmpty
+    private String pais;
+    @NotEmpty
+    private String bandera; 
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "planta")
     private Set<Lectura> lecturas;
@@ -34,10 +34,11 @@ public class Planta {
 
     }
 
-    public Planta(Long id, @NotEmpty String nombre, Pais pais, Set<Lectura> lecturas) {
+    public Planta(Long id, @NotEmpty String nombre, String pais, String bandera, Set<Lectura> lecturas) {
         this.id = id;
         this.nombre = nombre;
         this.pais = pais;
+        this.bandera = bandera;
         this.lecturas = new HashSet<>();
     }
 
@@ -57,12 +58,20 @@ public class Planta {
         this.nombre = nombre;
     }
 
-    public Pais getPais() {
+    public String getPais() {
         return pais;
     }
 
-    public void setPais(Pais pais) {
+    public void setPais(String pais) {
         this.pais = pais;
+    }
+    
+    public String getBandera() {
+        return bandera;
+    }
+
+    public void setBandera(String bandera) {
+        this.bandera = bandera;
     }
 
     public Set<Lectura> getLecturas() {
@@ -105,6 +114,7 @@ public class Planta {
     public String toString() {
         return "Planta [id=" + id + ", nombre=" + nombre + ", pais=" + pais + ", lecturas=" + lecturas + "]";
     }
+
 
     
 }

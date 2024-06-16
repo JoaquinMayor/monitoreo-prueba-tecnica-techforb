@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,12 +21,12 @@ public class Lectura{
     private Long id;
     
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_tipo_lectura")
     private TipoLectura tipo;
     
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_alerta")
     private Alerta alerta;
 
