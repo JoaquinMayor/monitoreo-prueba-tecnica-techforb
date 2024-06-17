@@ -9,6 +9,7 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Long>{
 
+    @SuppressWarnings("null")
     Optional<Usuario> findById(Long id);
     Optional<Usuario> findByEmail(String email);
 

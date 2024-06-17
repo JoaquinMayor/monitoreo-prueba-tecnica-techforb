@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface RolRepository extends CrudRepository<Rol,Long> {
 
+    @SuppressWarnings("null")
     Optional<Rol> findById(Long id);
 }

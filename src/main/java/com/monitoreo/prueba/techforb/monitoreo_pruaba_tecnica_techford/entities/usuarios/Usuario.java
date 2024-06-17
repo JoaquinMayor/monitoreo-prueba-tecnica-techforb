@@ -1,9 +1,7 @@
 package com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.usuarios;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,6 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios")
@@ -35,6 +34,7 @@ public class Usuario {
     @Column(unique = true)
     private String email;
     @NotEmpty
+    @Size(min = 8, message = "La contraseñia necesita tener mas de 8 caracteres")
     private String contrasenia;
 
     @NotNull

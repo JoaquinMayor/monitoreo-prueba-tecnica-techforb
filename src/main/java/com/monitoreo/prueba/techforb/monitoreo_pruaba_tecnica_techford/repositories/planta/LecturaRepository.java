@@ -14,7 +14,9 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.Tip
 @Repository
 public interface LecturaRepository extends CrudRepository<Lectura,Long>{
     
+    @SuppressWarnings("null")
     Set<Lectura> findAll();
+    @SuppressWarnings("null")
     Optional<Lectura> findById(Long id);
 
     @Query("SELECT COUNT(l) FROM Lectura l WHERE l.alerta.alerta = :tipoAlerta")

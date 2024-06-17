@@ -10,6 +10,7 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.Tip
 @Repository
 public interface TipoLecturaRepository extends CrudRepository<TipoLectura,Long>{
 
+    @SuppressWarnings("null")
     Optional<TipoLectura> findById(Long id);
     Optional<TipoLectura> findByTipo(TipoLecturaEnun tipo);
 

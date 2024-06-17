@@ -18,5 +18,6 @@ public interface SensorRepository extends CrudRepository<Sensor, Long>{
     @Query("SELECT COUNT(s) FROM Sensor s WHERE s.habilitado = true")
     Integer contraSensoresHabilitados();
 
+    @SuppressWarnings("null")
     Set<Sensor> findAll();
 }

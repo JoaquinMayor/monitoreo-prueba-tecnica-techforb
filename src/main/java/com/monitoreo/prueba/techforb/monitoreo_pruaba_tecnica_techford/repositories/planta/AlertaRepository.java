@@ -13,6 +13,7 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.Tip
 @Repository
 public interface AlertaRepository extends CrudRepository<Alerta,Long>{
 
+    @SuppressWarnings("null")
     Optional<Alerta> findById(Long id);
     
     @Query("SELECT COUNT(a) FROM Alerta a WHERE a.alerta = :tipo")

@@ -13,7 +13,9 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.Tip
 @Repository
 public interface PlantaRepository extends CrudRepository<Planta, Long>{
 
+    @SuppressWarnings("null")
     Set<Planta> findAll();
+    @SuppressWarnings("null")
     Optional<Planta> findById(Long id);
     Optional<Planta> findByNombre(String nombre);
 
