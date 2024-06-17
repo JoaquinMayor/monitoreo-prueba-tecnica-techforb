@@ -1,7 +1,9 @@
 package com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -11,6 +13,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.usuarios.Rol;
@@ -39,11 +42,13 @@ public class UsuarioService {
     @Autowired
     private RolRepository rolRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional
     public ResponseEntity<?> save(Usuario usuario) throws EmailExistenteException, FormatoEmailException, CantidadCaracteresException{
         Optional<Rol> optionalRol = rolRepository.findById(1L);
-        Set<Rol> roles = new HashSet<>();
+        List<Rol> roles = new ArrayList<>();
         optionalRol.ifPresent(rol->roles.add(rol));
         if(usuarioRepository.existsByEmail(usuario.getEmail())){
             throw new EmailExistenteException("Email ya en uso");
@@ -52,6 +57,8 @@ public class UsuarioService {
         }
         if(usuario.getContrasenia().length()>8){
             usuario.setRoles(roles);
+            String passwordEncoded = passwordEncoder.encode(usuario.getContrasenia());
+            usuario.setContrasenia(passwordEncoded);
             usuarioRepository.save(usuario);
             Map<String, Object> respuesta = new HashMap<>();
             respuesta.put("status", 201);

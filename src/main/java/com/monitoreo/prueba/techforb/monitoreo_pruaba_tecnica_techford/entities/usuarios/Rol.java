@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,7 +25,8 @@ public class Rol {
     private Long id;
 
     @NotEmpty
-    private String nombre;
+    @Column(unique = true)
+    private String name;
 
     @JsonIgnoreProperties({"roles","handler","hibernateLazyInitializer"})
     @ManyToMany(mappedBy = "roles")
@@ -36,7 +38,7 @@ public class Rol {
 
     public Rol(Long id, String nombre) {
         this.id = id;
-        this.nombre = nombre;
+        this.name = nombre;
         this.usuarios = new ArrayList<>();
     }
 
@@ -48,12 +50,12 @@ public class Rol {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -61,7 +63,7 @@ public class Rol {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
 
@@ -79,17 +81,17 @@ public class Rol {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (nombre == null) {
-            if (other.nombre != null)
+        if (name == null) {
+            if (other.name != null)
                 return false;
-        } else if (!nombre.equals(other.nombre))
+        } else if (!name.equals(other.name))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Rol [id=" + id + ", nombre=" + nombre + "]";
+        return "Rol [id=" + id + ", nombre=" + name + "]";
     }
 
     

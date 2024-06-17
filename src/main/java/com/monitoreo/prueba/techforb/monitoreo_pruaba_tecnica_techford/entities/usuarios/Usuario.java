@@ -1,10 +1,13 @@
 package com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.usuarios;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,9 +18,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "usuarios", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
+@Table(name = "usuarios")
 public class Usuario {
     
     @Id
@@ -28,9 +32,13 @@ public class Usuario {
     @NotEmpty
     private String apellido;
     @NotEmpty
+    @Column(unique = true)
     private String email;
     @NotEmpty
     private String contrasenia;
+
+    @NotNull
+    private boolean enabled;
 
     @JsonIgnoreProperties({"usuarios","handler","hibernateLAzyInitializer"})
     @ManyToMany
@@ -40,7 +48,7 @@ public class Usuario {
         inverseJoinColumns = @JoinColumn(name = "id_rol"),
         uniqueConstraints = {@UniqueConstraint(columnNames = {"id_usuario", "id_rol"})}
     )
-    private Set<Rol> roles;
+    private List<Rol> roles;
 
     public Usuario(){
     }
@@ -52,7 +60,7 @@ public class Usuario {
         this.apellido = apellido;
         this.email = email;
         this.contrasenia = contrasenia;
-        this.roles = new HashSet<>();
+        this.roles = new ArrayList<>();
     }
 
     public Long getId() {
@@ -95,11 +103,11 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public Set<Rol> getRoles() {
+    public List<Rol> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Rol> roles) {
+    public void setRoles(List<Rol> roles) {
         this.roles = roles;
     }
 
@@ -138,6 +146,14 @@ public class Usuario {
     public String toString() {
         return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email
                 + ", contrasenia=" + contrasenia + ", roles=" + roles + "]";
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     
