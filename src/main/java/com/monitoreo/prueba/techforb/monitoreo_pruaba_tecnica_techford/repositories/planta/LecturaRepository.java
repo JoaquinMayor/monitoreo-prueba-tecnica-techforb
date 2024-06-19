@@ -22,4 +22,7 @@ public interface LecturaRepository extends CrudRepository<Lectura,Long>{
     @Query("SELECT COUNT(l) FROM Lectura l WHERE l.alerta.alerta = :tipoAlerta")
     Integer contarLecturasPorTipo(@Param("tipoAlerta") TipoAlerta tipoAlerta);
 
+    @Query("SELECT COUNT(l) FROM Lectura l WHERE l.tipo.tipo = :tipoLecturaNombre AND l.alerta.alerta = :tipoAlertaNombre")
+    int contraLecturasPorTipoLecturaYAlerta(@Param("tipoLecturaNombre") String tipoLecturaNombre, @Param("tipoAlertaNombre") String tipoAlertaNombre);
+
 }

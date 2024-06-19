@@ -59,4 +59,14 @@ public class LecturaService {
         respuesta.put("cant", cantidad);
         return ResponseEntity.status(200).body(respuesta);
     }
+
+    @Transactional
+    public ResponseEntity<?> contarLecturasPorTipo(String tipoLectura, String tipoAlerta){
+        Map<String, Object> respuesta = new HashMap<>();
+        Integer cantidad = lecturaRepository.contraLecturasPorTipoLecturaYAlerta(tipoLectura, tipoAlerta);
+        respuesta.put("status", 200);
+        respuesta.put("mensaje","Todas las lecturas contadas");
+        respuesta.put("cant", cantidad);
+        return ResponseEntity.status(200).body(respuesta);
+    }
 }
