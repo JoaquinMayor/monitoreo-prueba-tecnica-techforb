@@ -25,7 +25,7 @@ public class TipoLectura {
 
     @Enumerated(EnumType.STRING)
     private TipoLecturaEnun tipo;
-
+    
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "tipo")
     private Set<Lectura> lectura;
 

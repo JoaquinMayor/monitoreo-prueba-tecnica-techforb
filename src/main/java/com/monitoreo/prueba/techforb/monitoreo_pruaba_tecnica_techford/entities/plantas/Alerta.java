@@ -27,6 +27,7 @@ public class Alerta {
     @Enumerated(EnumType.STRING)
     private TipoAlerta alerta;
 
+  
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "alerta")
     private Set<Lectura> lectura;
 

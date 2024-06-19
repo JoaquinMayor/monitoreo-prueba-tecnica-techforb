@@ -78,7 +78,7 @@ public class UsuarioService {
             respuesta.put("status", 302);
             respuesta.put("mensaje","Usuario encontontrado");
             respuesta.put("usuario", usuario);
-            return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
+            return ResponseEntity.status(HttpStatus.OK).body(respuesta);
         
         
     }

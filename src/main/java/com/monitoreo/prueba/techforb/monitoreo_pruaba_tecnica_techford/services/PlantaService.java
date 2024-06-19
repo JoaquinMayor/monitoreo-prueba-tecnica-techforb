@@ -153,7 +153,7 @@ public class PlantaService {
         respuesta.put("status", 302);
         respuesta.put("mensaje","Todas la plantas obtenidas");
         respuesta.put("plantas", setPlantas);
-        return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 
 

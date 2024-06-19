@@ -27,7 +27,7 @@ public class LecturaService {
         respuesta.put("status", 302);
         respuesta.put("mensaje","Todas las lecturas obtenidas");
         respuesta.put("lecturas", setLecturas);
-        return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 
     @Transactional

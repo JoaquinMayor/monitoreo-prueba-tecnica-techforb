@@ -26,7 +26,7 @@ public class SensorService {
         respuesta.put("status", 302);
         respuesta.put("mensaje","Todos los sensores obtenidos");
         respuesta.put("sensores", setSensor);
-        return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 
     @Transactional
@@ -36,7 +36,7 @@ public class SensorService {
         respuesta.put("status", 302);
         respuesta.put("mensaje","Todos los sensores contados");
         respuesta.put("cant", cantidad);
-        return ResponseEntity.status(HttpStatus.FOUND).body(respuesta);
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 
     @Transactional
