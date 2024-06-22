@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.plantas.Planta;
@@ -25,6 +26,8 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.models.Ac
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.services.PlantaService;
 
 import jakarta.validation.Valid;
+
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/planta")
@@ -46,10 +49,18 @@ public class PlantaController {
         return plantaService.findAll();
     }
 
+    @GetMapping("/encontrar/{id}")
+    public ResponseEntity<?> getMethodName(@PathVariable Long id) {
+        return this.plantaService.findById(id);
+    }
+    
+
     @PutMapping("/update/lecturas")
     public ResponseEntity<?> updateLecturas(@RequestBody ActualizacionPlanta actualizacionPlanta) throws AlertaNoEncontradaException, CantidadNoLogicaException, TipoAlertaNEncontradoException{
         return plantaService.actualizarCantidadLecturas(actualizacionPlanta);
     }
+
+    
 
     @PutMapping("/update")
     public ResponseEntity<?> update(@Valid @RequestBody Planta planta, BindingResult result){

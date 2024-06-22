@@ -55,11 +55,17 @@ public class PlantaService {
 
     @Transactional
     public ResponseEntity<?> delete(Long id){
-         plantaRepository.deleteById(id);
-         Map<String, Object> respuesta = new HashMap<>();
-         respuesta.put("status", 200);
-         respuesta.put("mensaje", "Eliminado con exito");
-         return ResponseEntity.status(200).body(respuesta);
+        Map<String, Object> respuesta = new HashMap<>();
+        if(plantaRepository.existsById(id)){
+            plantaRepository.deleteById(id);
+
+            respuesta.put("status", 200);
+            respuesta.put("mensaje", "Eliminado con exito");
+            return ResponseEntity.status(200).body(respuesta);
+        }
+        respuesta.put("status", HttpStatus.NOT_FOUND.value());
+        respuesta.put("mensaje", "No existe la planta seleccionada");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuesta);
     }
 
     @Transactional(readOnly = true)
@@ -103,7 +109,10 @@ public class PlantaService {
             Planta planta = optionalPlanta.get();
             
             if(actualizacion.getCanLecturas() == actualizacion.getCantLectOk()+ actualizacion.getCantLectMedio()+ actualizacion.getCantLectRojo()){
-                lecturaRepository.deleteAll();
+                if(planta.getLecturas().size()>0){
+                    lecturaRepository.deleteByPlantaId(actualizacion.getIdPlanta());
+                }
+
                 for(int o= 0 ; o<actualizacion.getCantLectOk();o++){
                     Lectura lectura = new Lectura();
                     lectura.setPlanta(planta);
@@ -154,6 +163,25 @@ public class PlantaService {
         respuesta.put("mensaje","Todas la plantas obtenidas");
         respuesta.put("plantas", setPlantas);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<?> findById(Long id){
+        Map<String, Object> respuesta = new HashMap<>();
+        Optional<Planta> plantaOptional = plantaRepository.findById(id);
+        if(plantaOptional.isPresent()){
+            Planta planta = plantaOptional.get();
+            respuesta.put("status", 302);
+            respuesta.put("mensaje","Planta encontrada");
+            respuesta.put("plantas", planta);
+            return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+        }else{
+            respuesta.put("status", 302);
+            respuesta.put("mensaje","Planta no encontrada");
+           ;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuesta);
+        }
+       
     }
 
 

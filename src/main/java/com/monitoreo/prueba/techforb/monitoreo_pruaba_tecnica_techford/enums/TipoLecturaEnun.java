@@ -8,5 +8,6 @@ public enum TipoLecturaEnun {
     ENERGIA, 
     TENSION, 
     MONOXIDO_DE_CARBONO,
-    OTROS_GASES
+    OTROS_GASES;
+
 }

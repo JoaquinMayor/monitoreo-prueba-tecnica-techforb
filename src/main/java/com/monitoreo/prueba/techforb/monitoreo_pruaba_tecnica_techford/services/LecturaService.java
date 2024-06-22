@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.plantas.Lectura;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.TipoAlerta;
+import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.TipoLecturaEnun;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositories.planta.LecturaRepository;
 
 @Service
@@ -61,9 +62,9 @@ public class LecturaService {
     }
 
     @Transactional
-    public ResponseEntity<?> contarLecturasPorTipo(String tipoLectura, String tipoAlerta){
+    public ResponseEntity<?> contarLecturasPorTipo(TipoLecturaEnun tipoLectura, TipoAlerta tipoAlerta){
         Map<String, Object> respuesta = new HashMap<>();
-        Integer cantidad = lecturaRepository.contraLecturasPorTipoLecturaYAlerta(tipoLectura, tipoAlerta);
+        Integer cantidad = lecturaRepository.contarLecturasPorTipoYAlerta(tipoLectura, tipoAlerta);
         respuesta.put("status", 200);
         respuesta.put("mensaje","Todas las lecturas contadas");
         respuesta.put("cant", cantidad);
