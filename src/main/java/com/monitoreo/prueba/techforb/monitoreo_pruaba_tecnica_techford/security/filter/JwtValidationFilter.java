@@ -36,8 +36,8 @@ public class JwtValidationFilter extends BasicAuthenticationFilter{
             throws IOException, ServletException, java.io.IOException {
                 
             String header = request.getHeader(HEADER_AUTORIZATION); //Primero recuperamos el header, del token del cliente o postman
-
-            if(header == null || !header.startsWith(PREFIX_TOKEN)){
+        String path = request.getRequestURI();
+            if(path.matches("/api/usuario") || path.matches("/api/usuario/existe/.*")){
                 chain.doFilter(request, response);
                 return ;
             }

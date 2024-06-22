@@ -45,11 +45,17 @@ public class UsuarioController {
     }
 
 
+    @GetMapping("/existe/{email}")
+    public ResponseEntity<?> existeUsuario(@PathVariable String email){
+        return usuarioService.existeUsuario(email);
+    }
+
+
     private ResponseEntity<Map<String, String>> validation(BindingResult result){
         Map<String, String> errors = new HashMap<>();
-        result.getFieldErrors().forEach(err ->{ //Da una lista de mensajesel getFieldErrors y lo recorremos para ir creando los mensajes
+        result.getFieldErrors().forEach(err ->{
             errors.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
         });
-        return ResponseEntity.badRequest().body(errors); //Siempre que se pasa un status 400 se hace un badRequest
+        return ResponseEntity.badRequest().body(errors);
     }
 }

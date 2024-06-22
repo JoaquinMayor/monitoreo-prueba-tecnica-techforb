@@ -69,6 +69,20 @@ public class UsuarioService {
 
     }
 
+    @Transactional()
+    public ResponseEntity<?> existeUsuario(String email){
+        boolean existe = usuarioRepository.existsByEmail(email);
+        Map<String, Object> respuesta = new HashMap<>();
+        if(existe){
+            respuesta.put("mensaje", "Usuario Existe");
+        }else{
+            respuesta.put("mensaje", "Usuario no existe");
+        }
+        respuesta.put("status", 200);
+        respuesta.put("existe", existe);
+        return ResponseEntity.ok().body(respuesta);
+    }
+
     @Transactional
     public ResponseEntity<?> buscarUsuario(String email) throws UsuarioNoEncontradoExceotion{
         Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
