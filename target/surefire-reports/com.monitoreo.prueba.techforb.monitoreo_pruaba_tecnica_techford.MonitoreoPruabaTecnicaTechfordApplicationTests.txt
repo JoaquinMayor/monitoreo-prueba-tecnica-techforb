@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.MonitoreoPruabaTecnicaTechfordApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.725 s -- in com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.MonitoreoPruabaTecnicaTechfordApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.307 s -- in com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.MonitoreoPruabaTecnicaTechfordApplicationTests

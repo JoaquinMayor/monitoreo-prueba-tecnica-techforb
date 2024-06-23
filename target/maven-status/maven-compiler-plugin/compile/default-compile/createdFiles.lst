@@ -23,7 +23,6 @@ com\monitoreo\prueba\techforb\monitoreo_pruaba_tecnica_techford\MonitoreoPruabaT
 com\monitoreo\prueba\techforb\monitoreo_pruaba_tecnica_techford\exceptions\AlertaNoEncontradaException.class
 com\monitoreo\prueba\techforb\monitoreo_pruaba_tecnica_techford\security\filter\JwtValidationFilter.class
 com\monitoreo\prueba\techforb\monitoreo_pruaba_tecnica_techford\entities\usuarios\Usuario.class
-com\monitoreo\prueba\techforb\monitoreo_pruaba_tecnica_techford\MonitoreoPruabaTecnicaTechfordApplication$1.class
 com\monitoreo\prueba\techforb\monitoreo_pruaba_tecnica_techford\enums\TipoAlerta.class
 com\monitoreo\prueba\techforb\monitoreo_pruaba_tecnica_techford\models\Error.class
 com\monitoreo\prueba\techforb\monitoreo_pruaba_tecnica_techford\enums\TipoLecturaEnun.class
