@@ -18,7 +18,9 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.services.
 
 import jakarta.validation.Valid;
 
-
+/**
+ * Controlador que maneja la información de los sensores.
+ */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/sensor")
@@ -26,7 +28,7 @@ public class SensorController {
 
     @Autowired
     private SensorService sensorService;
-
+    //Almacena un nuevo sensor en la base de datos.
     @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Sensor sensor,BindingResult result){
         if(result.hasFieldErrors()){
@@ -34,18 +36,18 @@ public class SensorController {
         }
         return sensorService.save(sensor);
     }
-
+    //Devuelve una lista de todos los sensores.
     @GetMapping
     public ResponseEntity<?> listar(){
         return sensorService.findAll();
     }
-
+    //Cuenta la cantiodad de sensores desabilitados.
     @GetMapping("/contar")
     public ResponseEntity<?> contarSensores(){
         return sensorService.contarSensoresDesabilitados();
     }
 
-    
+    //Devoluciones de errores inesperado o de parametros no pasados correctamente.
     private ResponseEntity<Map<String, String>> validation(BindingResult result){
         Map<String, String> errors = new HashMap<>();
         result.getFieldErrors().forEach(err ->{ //Da una lista de mensajesel getFieldErrors y lo recorremos para ir creando los mensajes

@@ -1,5 +1,6 @@
 package com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.models;
 
+//Clase creada para manejar más facilmente el manejo de la creación de lecturas.
 public class ActualizacionPlanta {
 
     private Long idPlanta;

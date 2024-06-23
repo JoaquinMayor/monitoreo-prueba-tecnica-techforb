@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.plantas.Sensor;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositories.planta.SensorRepository;
 
-
+//Servicio que maneja toda la información de los sensores.
 @Service
 public class SensorService {
     @Autowired
     private SensorRepository sensorRepository;
-
+    //Método que devuelve un ResponseEntity con todos los sensores de la base de datos.
     @Transactional(readOnly = true)
     public ResponseEntity<?>findAll(){
         Map<String, Object> respuesta = new HashMap<>();
@@ -29,6 +29,7 @@ public class SensorService {
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 
+    //Método que devuelve un ResponseEntity con la cantidad de sensores deshabilitados en la base de datos.
     @Transactional
     public ResponseEntity<?> contarSensoresDesabilitados(){
         Map<String, Object> respuesta = new HashMap<>();
@@ -39,6 +40,7 @@ public class SensorService {
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 
+    //Método que almacena un nuevo sensor en la base de datos.
     @Transactional
     public ResponseEntity<?> save(Sensor sensor){
         sensorRepository.save(sensor);

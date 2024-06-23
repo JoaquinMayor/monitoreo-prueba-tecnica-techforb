@@ -25,9 +25,10 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositor
 
 import jakarta.transaction.Transactional;
 
+//Servicio que maneja toda la información de los usuarios.
 @Service
 public class UsuarioService {
-
+    //Patron de un email
     private static final String EMAIL_PATRON = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
@@ -39,10 +40,11 @@ public class UsuarioService {
 
     @Autowired
     private RolRepository rolRepository;
-
+    //Enciptación de contraseña
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    //Método que almacena un usuario en la base de datos.
     @Transactional
     public ResponseEntity<?> save(Usuario usuario) throws EmailExistenteException, FormatoEmailException, CantidadCaracteresException{
         Optional<Rol> optionalRol = rolRepository.findById(1L);
@@ -68,7 +70,7 @@ public class UsuarioService {
         }
 
     }
-
+    //Método devuleve un ResponseEntity que determina si un usuario existe en la base de datos en base a su email.
     @Transactional()
     public ResponseEntity<?> existeUsuario(String email){
         boolean existe = usuarioRepository.existsByEmail(email);
@@ -83,6 +85,7 @@ public class UsuarioService {
         return ResponseEntity.ok().body(respuesta);
     }
 
+    //Método que devuelve ResponseEntity con un usuario buscado por su email.
     @Transactional
     public ResponseEntity<?> buscarUsuario(String email) throws UsuarioNoEncontradoExceotion{
         Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
@@ -97,7 +100,7 @@ public class UsuarioService {
         
     }
 
-
+    //Método que determina si un email es valido.
     public boolean validacionEmail(String email){   
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();

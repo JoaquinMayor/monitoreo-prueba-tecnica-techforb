@@ -17,10 +17,12 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.exception
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.models.Error;
 
 
-
+/**
+ * Controlador destinado al manejo de errores.
+ */
 @RestControllerAdvice
 public class HandlerExceptionController {
-
+    //Maneja la excepción por si no se encuentra algún tipo de alerta
     @ExceptionHandler(AlertaNoEncontradaException.class)
     public ResponseEntity<Error> alertaNoEncontrada(Exception ex){
         Error error = new Error();
@@ -30,7 +32,7 @@ public class HandlerExceptionController {
         error.setStatus(HttpStatus.NOT_FOUND.value());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
-
+    //Maneja la excepción por si la cantidad de carcateres ingresados en la contraseña es incorrecto
     @ExceptionHandler(CantidadCaracteresException.class)
     public ResponseEntity<Error> cantidadDeCaracteres(Exception ex){
         Error error = new Error();
@@ -40,7 +42,7 @@ public class HandlerExceptionController {
         error.setStatus(HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
-
+//Maneja la excepción por si la cantidad de lecturas ingresdas no es  igual a la suma de sus tipos.
     @ExceptionHandler(CantidadNoLogicaException.class)
     public ResponseEntity<Error> cantidadNoLogica(Exception ex){
         Error error = new Error();
@@ -50,7 +52,7 @@ public class HandlerExceptionController {
         error.setStatus(HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
-
+    //Maneja la excepción por si ingresado no es valido
     @ExceptionHandler(EmailExistenteException.class)
     public ResponseEntity<Error> emailExistente(Exception ex){
         Error error = new Error();
@@ -60,7 +62,7 @@ public class HandlerExceptionController {
         error.setStatus(HttpStatus.CONFLICT.value());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
-
+    //Maneja la excepción por si el formato del emmail no es válido.
     @ExceptionHandler(FormatoEmailException.class)
     public ResponseEntity<Error> formatoEmail(Exception ex){
         Error error = new Error();
@@ -70,7 +72,7 @@ public class HandlerExceptionController {
         error.setStatus(HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
-
+    //Maneja la excepción por si no se encuentra un tipo de alerta
     @ExceptionHandler(TipoAlertaNEncontradoException.class)
     public ResponseEntity<Error> tipoAlertaNoEncontrado(Exception ex){
         Error error = new Error();
@@ -80,7 +82,7 @@ public class HandlerExceptionController {
         error.setStatus(HttpStatus.NOT_FOUND.value());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
-
+    //Maneja la excepción por si el usuario buscado no se encuentra
     @ExceptionHandler(UsuarioNoEncontradoExceotion.class)
     public ResponseEntity<Error> usuarioNoEncontrada(Exception ex){
         Error error = new Error();

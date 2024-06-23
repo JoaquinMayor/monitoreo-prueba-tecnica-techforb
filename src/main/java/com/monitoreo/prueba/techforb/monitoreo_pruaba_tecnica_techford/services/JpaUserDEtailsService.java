@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.entities.usuarios.Usuario;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositories.usuario.UsuarioRepository;
 
+//Servicio que maneja las validaciones y generacion de token.
 @Service
 public class JpaUserDEtailsService implements UserDetailsService{
   

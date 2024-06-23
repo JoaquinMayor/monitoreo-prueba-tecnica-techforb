@@ -15,12 +15,13 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.Tip
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.enums.TipoLecturaEnun;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositories.planta.LecturaRepository;
 
+//Servicio que maneja toda la información de las lecturas.
 @Service
 public class LecturaService {
 
     @Autowired
     private LecturaRepository lecturaRepository;
-
+    //Método que delvuelve un responseEntity con todas les lecturas encontradas
     @Transactional(readOnly = true)
     public ResponseEntity<?> findAll(){
         Map<String, Object> respuesta = new HashMap<>();
@@ -31,6 +32,7 @@ public class LecturaService {
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 
+    //Método que va a retornar un ResponseEntity con la cantidad de lecturas ok.
     @Transactional
     public ResponseEntity<?> contarLecturasOk(){
         Map<String, Object> respuesta = new HashMap<>();
@@ -41,6 +43,7 @@ public class LecturaService {
         return ResponseEntity.status(200).body(respuesta);
     }
 
+    //Método que va a retornar un ResponseEntity con la cantidad de lecturas medias.
     @Transactional
     public ResponseEntity<?> contarLecturasMedia(){
         Map<String, Object> respuesta = new HashMap<>();
@@ -51,6 +54,7 @@ public class LecturaService {
         return ResponseEntity.status(200).body(respuesta);
     }
 
+    //Método que va a retornar un ResponseEntity con la cantidad de lecturas rojas.
     @Transactional
     public ResponseEntity<?> contarLecturasRojas(){
         Map<String, Object> respuesta = new HashMap<>();
@@ -61,6 +65,7 @@ public class LecturaService {
         return ResponseEntity.status(200).body(respuesta);
     }
 
+    //Método que va a retornar un ResponseEntity con la cantidad de lecturas determiandas por su tipo y el tipo de alerta que presenta.
     @Transactional
     public ResponseEntity<?> contarLecturasPorTipo(TipoLecturaEnun tipoLectura, TipoAlerta tipoAlerta){
         Map<String, Object> respuesta = new HashMap<>();

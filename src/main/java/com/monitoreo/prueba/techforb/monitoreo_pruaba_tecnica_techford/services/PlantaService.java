@@ -26,7 +26,7 @@ import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositor
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositories.planta.PlantaRepository;
 import com.monitoreo.prueba.techforb.monitoreo_pruaba_tecnica_techford.repositories.planta.TipoLecturaRepository;
 
-
+//Servicio que maneja toda la información de las plantas.
 @Service
 public class PlantaService {
 
@@ -42,6 +42,7 @@ public class PlantaService {
     @Autowired
     private TipoLecturaRepository tipoLecturaRepository;
 
+    //Método que se encarga del manejo del guardar una nueva planta.
     @Transactional
     public ResponseEntity<?> save(Planta planta){
         plantaRepository.save(planta);
@@ -52,7 +53,7 @@ public class PlantaService {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
     }
-
+    //Método erncargado del manejo de la eliminación de una planta por su id.
     @Transactional
     public ResponseEntity<?> delete(Long id){
         Map<String, Object> respuesta = new HashMap<>();
@@ -67,7 +68,7 @@ public class PlantaService {
         respuesta.put("mensaje", "No existe la planta seleccionada");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuesta);
     }
-
+    //Método que se encarga del manejo de contar la cantidad de lecturas por el id de la planta y el tipo de lectura.
     @Transactional(readOnly = true)
     public ResponseEntity<?> contarCantidadLecturas(Long idPlanta, TipoAlerta tipo){
         Integer cant = plantaRepository.obtenerCantidadLecturasPorTipo(tipo, idPlanta);
@@ -78,6 +79,7 @@ public class PlantaService {
         return ResponseEntity.status(200).body(respuesta);
     }
 
+    //Método encargado de cargar una nueva lectura a una planta por su id.
     @Transactional
     public ResponseEntity<?> cargarUnaLectura(Lectura lectura, Long idPlanta){
         Optional<Planta> optionalPlanta = plantaRepository.findById(idPlanta);
@@ -98,7 +100,7 @@ public class PlantaService {
         return ResponseEntity.status(200).body(respuesta);
     }
 
-
+    //Método encargado de actualizar la cantidad y tipos de lecturas que tiene una planta.
     @Transactional
     public ResponseEntity<?> actualizarCantidadLecturas(ActualizacionPlanta actualizacion) throws AlertaNoEncontradaException, CantidadNoLogicaException, TipoAlertaNEncontradoException{
         
@@ -154,7 +156,7 @@ public class PlantaService {
         
 
     }
-
+    //Método que retorna un ResponseEntity con todas las plantas de la base de datos.
     @Transactional(readOnly = true)
     public ResponseEntity<?> findAll(){
         Map<String, Object> respuesta = new HashMap<>();
@@ -165,6 +167,7 @@ public class PlantaService {
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 
+    //Método que retorna un ResponseEntity que retirna una planta buscada por su id.
     @Transactional(readOnly = true)
     public ResponseEntity<?> findById(Long id){
         Map<String, Object> respuesta = new HashMap<>();
@@ -184,7 +187,7 @@ public class PlantaService {
        
     }
 
-
+    //Método encargado de cargar una alerta.
     public Alerta cargarAlerta(Long id) throws AlertaNoEncontradaException{
         Alerta alerta = alertaRepository.findById(id).orElseThrow(()-> new AlertaNoEncontradaException("Tipo de alerta no encontrada"));
         
@@ -192,7 +195,7 @@ public class PlantaService {
     }
 
 
-
+    //Método destinado a determinar el tipo de lectura de manera aleatoria para la carga de la cantidad de lecturas.
     public TipoLectura determinarTipoLectura() throws TipoAlertaNEncontradoException{
         Random random = new Random();
         Long idLectura = random.nextLong(8) + 1L;
